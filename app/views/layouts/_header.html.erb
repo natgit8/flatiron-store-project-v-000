@@ -1,8 +1,16 @@
-<nav class="">
-    <ul>
-        <li> <%= link_to "Store Home", store_path %> </li>
+<nav class="navbar">
+  <% if current_user %>
+  <%= "Signed in as #{current_user.email}" %>
+  <% end %>
+  <p class="home"> <%= link_to "Store Home", store_path %> <p>
+
+    <ul class="navlinks">
         <% if !!@cart %>
-          <li> <%= link_to "Cart", cart_path(current_cart) %></li>
+          <%= link_to "Cart", cart_path(current_user) %>
+          <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %>
+          <%= link_to "Sign In", store_path %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
         <% end %>
     </ul>
 </nav>
